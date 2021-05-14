@@ -14,7 +14,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from scipy.io import loadmat
 from scipy.signal import find_peaks
-from model.model import ATMNet
+from models.model import ATMNet
 
 warnings.filterwarnings("ignore")
 QT_AUTO_SCREEN_SCALE_FACTOR = 2
@@ -448,14 +448,32 @@ class AnimationWidget(QWidget):
 
 
 if __name__ == "__main__":
-    import sys
-    print("실행중입니다..잠시 기다려주세요.")
-    model = ATMNet()
-    with torch.no_grad():
-        model.eval()
-    model.load_state_dict(torch.load("./checkpoint/predictor.pth", map_location="cpu"))
-    app = QApplication(sys.argv)
-    windows = AnimationWidget()
-    windows.setWindowTitle("Arrhythmia Detection Program")
-    windows.show()
-    sys.exit(app.exec_())
+    print(" 1 : 프로그램 실행 \t 2 : 모델 학습 \t 3 : 종료 \t (숫자 입력)")
+    number = int(input())
+    if number == 1:
+        import sys
+        print("실행중입니다..잠시 기다려주세요.")
+        model = ATMNet()
+        with torch.no_grad():
+            model.eval()
+        model.load_state_dict(torch.load("./checkpoint/predictor.pth", map_location="cpu"))
+        app = QApplication(sys.argv)
+        windows = AnimationWidget()
+        windows.setWindowTitle("Arrhythmia Detection Program")
+        windows.show()
+        sys.exit(app.exec_())
+    if number == 2:
+        from trainer.trainer import train
+        import os
+        os_path = os.path.realpath("")
+        with open(os_path + '\\dataset\\training\\feature.pkl', 'rb') as f:
+            feature = pickle.load(f)
+
+        with open(os_path + '\\dataset\\training\\target.pkl', 'rb') as f:
+            target = pickle.load(f)
+
+        train(target=feature, label=target, batch_size_num=32, epochs=1)
+    if number == 3:
+        print("종료")
+        import sys
+        sys.exit()
