@@ -284,7 +284,7 @@ class AnimationWidget(QWidget):
                 self.EndMSG.setIcon(QMessageBox.Information)
                 self.EndMSG.setStandardButtons(QMessageBox.Ok)
                 self.EndMSG.exec_()
-                result = open("./output/"+
+                result = open("./log/"+
                     str(run_time)[:10]
                     + "_"
                     + str(run_time)[11:13]
@@ -292,7 +292,7 @@ class AnimationWidget(QWidget):
                     + str(run_time)[14:16]
                     + "_"
                     + str(run_time)[17:19]
-                    + ".txt",
+                    + "_detecton_log.txt",
                     "w",
                 )
                 result.write(self.Arrhythmias.toPlainText())
