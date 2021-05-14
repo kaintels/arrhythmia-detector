@@ -278,7 +278,6 @@ class AnimationWidget(QWidget):
                     + str(run_time)[14:16]
                     + "_"
                     + str(run_time)[17:19]
-                    + ".txt"
                 )
                 self.EndMSG.setWindowTitle("Notice")
                 self.EndMSG.setIcon(QMessageBox.Information)
