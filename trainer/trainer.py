@@ -1,14 +1,17 @@
+import os
 import math
 import random
 import numpy as np
 import torch
 import torch.nn.functional as F
 from torch.utils.data import TensorDataset, DataLoader
-from model.model import ATMNet
 import pickle
+import sys
 
+os_path = os.path.realpath("")
 random_seed = 777
-
+sys.path.append("./")
+from models.model import ATMNet
 torch.manual_seed(random_seed)
 torch.cuda.manual_seed(random_seed)
 torch.cuda.manual_seed_all(random_seed)  # if use multi-GPU
@@ -20,18 +23,14 @@ random.seed(random_seed)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = ATMNet().to(device)
 
-with open('../dataset/training/feature.pkl', 'rb') as f:
-    feature = pickle.load(f)
 
-with open('../dataset/training/target.pkl', 'rb') as f:
-    target = pickle.load(f)
 
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
-def train(target=feature, label=target, batch_size_num=32, epochs=5):
+def train(target, label, batch_size_num=32, epochs=5):
     train_dataset = TensorDataset(torch.FloatTensor(target), torch.LongTensor(label).squeeze())
     train_loader = DataLoader(train_dataset, batch_size=batch_size_num, shuffle=True, drop_last=True)
-    file = open("../log/model_log.txt", 'w')
+    file = open(os_path+"\\log\\model_log.txt", 'w')
     model.train()
     check_loss = math.inf
     for epoch in range(epochs):
@@ -50,11 +49,11 @@ def train(target=feature, label=target, batch_size_num=32, epochs=5):
             optimizer.step()   # update gradients
 
             if loss.item() < check_loss:
-                torch.save(model.state_dict(), "../checkpoint/predictor.pth")
+                torch.save(model.state_dict(), os_path+"\\checkpoint\\predictor.pth")
                 check_loss = loss.item() # save optimized loss model
                 print("Save Model. Iteration : {0}, Loss : {1}".format(idx, loss.item()))
                 log = "Save Model. "+"Epoch : "+str(epoch+1)+", Iteration : "+str(idx)+", Loss : "+str(loss.item())+"\n"
                 file.write(log)
         print("-" * 100)
 
-train(target=feature, label=target, batch_size_num=32, epochs=5)
+        print("Train finish.")
