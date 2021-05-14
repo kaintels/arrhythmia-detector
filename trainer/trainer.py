@@ -31,7 +31,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 def train(target=feature, label=target, batch_size_num=32, epochs=5):
     train_dataset = TensorDataset(torch.FloatTensor(target), torch.LongTensor(label).squeeze())
     train_loader = DataLoader(train_dataset, batch_size=batch_size_num, shuffle=True, drop_last=True)
-    file = open("../log/log.txt", 'w')
+    file = open("../log/model_log.txt", 'w')
     model.train()
     check_loss = math.inf
     for epoch in range(epochs):
