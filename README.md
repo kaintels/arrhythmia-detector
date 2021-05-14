@@ -1,3 +1,3 @@
 # Arrhythmia-Detector
 
-![image](https://user-images.githubusercontent.com/38157496/118225339-e2196380-b4bf-11eb-8a08-93c0edde09a9.png)
+![image](https://user-images.githubusercontent.com/38157496/118226098-44bf2f00-b4c1-11eb-8137-b26af09451d2.png)
