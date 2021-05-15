@@ -19,7 +19,7 @@
 
 
 ## 1. 개요
----
+
 - 2015년 기준, 유엔의 보고서에 따르면 세계는 고령화 시대로 접어들고 있음
 - 또한 사람은 보통 나이가 들 수록 심혈관 시스템이 약해지며 부정맥과 같은 심혈관 질환에 취약해진다고 알려져 있음
 
@@ -28,7 +28,7 @@
 ![image](https://user-images.githubusercontent.com/38157496/118226098-44bf2f00-b4c1-11eb-8137-b26af09451d2.png)
 
 ## 2. 설명
----
+
 ### 2-1. 환경 설계
 
 <br>
@@ -121,19 +121,18 @@ TensorFlow의 Keras 프레임워크를 선택하였으나 모델 inference 시 �
 <br>
 
 ## 3. 실행 방법
----
 
 - 아나콘다 가상환경 등으로 python 3.7 버전 환경 설정 뒤에 ```pip install -r requirements.txt``` 명령어로 라이브러리 설치
 
 - python main.py 실행 후 출력되는 값
 ```
-1 : 프로그램 실행       2 : 모델 학습   3 : 종료        (숫자 입력
+1 : 프로그램 실행       2 : 모델 학습   3 : 종료        (숫자 입력)
 ```
 에 맞는 값 실행 시 프로그램 작동
 
+슬랙 Webhook은 본인의 URL 주소 및 채널을 입력해야 함 (참고문헌 6 참고)
 
 ## 4. 참고문헌
----
 
 [1] United Nations. Department of economic and social affairs population division. World population aging 2015. New York, 2015
 
@@ -145,3 +144,5 @@ TensorFlow의 Keras 프레임워크를 선택하였으나 모델 inference 시 �
 
 [5] S. Kiranyaz, T. Ince, and M. Gabbouj, “Real-time patient-specific ECG classification by 1-D convolutional neural networks,” IEEE Transactions
 on Biomedical Engineering, vol. 63, no. 3, pp. 664–675, 2015.
+
+[6] https://jojoldu.tistory.com/552
