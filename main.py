@@ -462,7 +462,7 @@ if __name__ == "__main__":
         windows.show()
         sys.exit(app.exec_())
     if number == 2:
-        from trainer.trainer import train
+        from trainer.trainer import train_model_slack_notify
         import os
         os_path = os.path.realpath("")
         with open(os_path + '\\dataset\\training\\feature.pkl', 'rb') as f:
@@ -471,7 +471,8 @@ if __name__ == "__main__":
         with open(os_path + '\\dataset\\training\\target.pkl', 'rb') as f:
             target = pickle.load(f)
 
-        train(target=feature, label=target, batch_size_num=32, epochs=1)
+        train_model_slack_notify(target=feature, label=target, batch_size_num=32, epochs=5)
+
     if number == 3:
         print("종료")
         import sys
