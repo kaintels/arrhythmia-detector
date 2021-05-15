@@ -126,10 +126,11 @@ TensorFlow의 Keras 프레임워크를 선택하였으나 모델 inference 시 �
 
 - python main.py 실행 후 출력되는 값
 ```
-1 : 프로그램 실행       2 : 모델 학습   3 : 종료        (숫자 입력
+1 : 프로그램 실행       2 : 모델 학습   3 : 종료        (숫자 입력)
 ```
 에 맞는 값 실행 시 프로그램 작동
 
+슬랙 Webhook은 본인의 URL 주소 및 채널을 입력해야 함 (참고문헌 6 참고)
 
 ## 4. 참고문헌
 
@@ -143,3 +144,5 @@ TensorFlow의 Keras 프레임워크를 선택하였으나 모델 inference 시 �
 
 [5] S. Kiranyaz, T. Ince, and M. Gabbouj, “Real-time patient-specific ECG classification by 1-D convolutional neural networks,” IEEE Transactions
 on Biomedical Engineering, vol. 63, no. 3, pp. 664–675, 2015.
+
+[6] https://jojoldu.tistory.com/552
