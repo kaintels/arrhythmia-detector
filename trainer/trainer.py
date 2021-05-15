@@ -7,6 +7,7 @@ import torch.nn.functional as F
 from torch.utils.data import TensorDataset, DataLoader
 import pickle
 import sys
+from knockknock import slack_sender
 
 os_path = os.path.realpath("")
 random_seed = 777
@@ -32,6 +33,7 @@ def train(target, label, batch_size_num=32, epochs=5):
     train_loader = DataLoader(train_dataset, batch_size=batch_size_num, shuffle=True, drop_last=True)
     file = open(os_path+"\\log\\model_log.txt", 'w')
     model.train()
+    print("Training start.")
     check_loss = math.inf
     for epoch in range(epochs):
         outputs = []
@@ -56,4 +58,11 @@ def train(target, label, batch_size_num=32, epochs=5):
                 file.write(log)
         print("-" * 100)
 
-        print("Train finish.")
+    print("Training finish.")
+
+    return {'best model loss': check_loss}
+
+webhook_url = ""
+@slack_sender(webhook_url=webhook_url, channel="")
+def train_model_slack_notify(target, label, batch_size_num, epochs):
+    return train(target, label, batch_size_num, epochs)
