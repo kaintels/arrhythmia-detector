@@ -11,7 +11,7 @@
     - Git, Agile
 
 - 📱 APP
-    - Language & Environment: Python 3.7.10, PyCharm, VScode (터미널 실행 테스트)
+    - Language & Environment: Python 3.7.10, PyCharm(전체적인 개발), VScode(터미널 실행 테스트)
 
     - Frameworks : PyQt5, PyTorch
 
@@ -19,7 +19,7 @@
 
 
 ## 1. 개요
-
+---
 - 2015년 기준, 유엔의 보고서에 따르면 세계는 고령화 시대로 접어들고 있음
 - 또한 사람은 보통 나이가 들 수록 심혈관 시스템이 약해지며 부정맥과 같은 심혈관 질환에 취약해진다고 알려져 있음
 
@@ -30,6 +30,7 @@
 ## 2. 설명
 ---
 ### 2-1. 환경 설계
+
 <br>
 
 1. 전체 구조
@@ -48,11 +49,45 @@
 
 <br>
 
-### 2-2. 핵심 파트
----
+### 2-2. 핵심 기능
+
 <br>
 
-![image](https://user-images.githubusercontent.com/38157496/118346298-67ab1b00-b575-11eb-9bb8-45fa7cdebde3.png)
+1. 화면
+
+![image](https://user-images.githubusercontent.com/38157496/118346535-46e3c500-b577-11eb-92af-76721fc43ebc.png)
+
+- (1) 파일 불러오기 기능
+
+    - 경로의 위치를 파악하여 뒤에서 3번째 단어에 따라 (예) .csv -> c ) mat, csv, pkl 불러오기 가능
+
+- (2) 부정맥 감지 기능
+
+    - 사전 학습된 PyTorch 모델을 토대로 부정맥일 경우 부정맥이 감지
+
+    - 고정 사이즈 기반 신호 분할 후 모델에 입력
+
+- (3) 감지 이력 기능
+
+    - 부정맥이 감지될 경우 현재의 시간이 기록
+
+    - 신호가 끝까지 불러왔을 경우 로그를 저장
+
+- (4) 운용 기능
+    - 실행 , 정지, 초기화, 종료 기능
+    - matplotlib의 애니메이션 기능 활용
+    - python의 global 기능을 활용한 스위치 설정으로 실행/정지/초기화 가능
+
+- (5) 디스플레이 기능
+    - PyQt5의 Widget 및 matplotlib의 canvas API 활용
+
+<br>
+
+2. 모델 학습
+
+- (1) trainer의 train 함수 구현
+
+    - loss (손실)이 적을때 모델을 새로 저장한 뒤 다음과 같이 터미널에서 출력, 이후 log 폴더에 모델 학습 로그 저장
 
 ```python
 Training start.
@@ -62,37 +97,51 @@ Epoch : 1
 Save Model. Iteration : 0, Loss : 0.7419296503067017
 Save Model. Iteration : 1, Loss : 0.7344326972961426
 Save Model. Iteration : 2, Loss : 0.7135477662086487
-Save Model. Iteration : 3, Loss : 0.6741836071014404
-Save Model. Iteration : 4, Loss : 0.6415941715240479
-Save Model. Iteration : 5, Loss : 0.25995510816574097
-Save Model. Iteration : 7, Loss : 0.1477108746767044
-Save Model. Iteration : 41, Loss : 0.035394538193941116
-Save Model. Iteration : 54, Loss : 0.028688061982393265
-Save Model. Iteration : 203, Loss : 0.02664264291524887
-Save Model. Iteration : 260, Loss : 0.025856036692857742
-Save Model. Iteration : 261, Loss : 0.013188879005610943
-Save Model. Iteration : 373, Loss : 0.006169120781123638
-Save Model. Iteration : 689, Loss : 0.003487685229629278
-Save Model. Iteration : 822, Loss : 0.002374453702941537
-----------------------------------------------------------------------------------------------------
-Epoch : 2
-----------------------------------------------------------------------------------------------------
-Save Model. Iteration : 17, Loss : 0.0005632522515952587
-----------------------------------------------------------------------------------------------------
-Epoch : 3
-----------------------------------------------------------------------------------------------------
-Save Model. Iteration : 339, Loss : 0.00045568024506792426
-Save Model. Iteration : 701, Loss : 0.00035205582389608026
-----------------------------------------------------------------------------------------------------
-Epoch : 4
-----------------------------------------------------------------------------------------------------
-Save Model. Iteration : 405, Loss : 0.0003040210285689682
-Save Model. Iteration : 724, Loss : 0.0002279585023643449
-Save Model. Iteration : 1182, Loss : 0.00012078546569682658
-----------------------------------------------------------------------------------------------------
+... (중략)
 Epoch : 5
 ----------------------------------------------------------------------------------------------------
 Save Model. Iteration : 965, Loss : 5.184491601539776e-05
 ----------------------------------------------------------------------------------------------------
 Training finish.
 ```
+
+- (2) Slack 연동
+
+    - knockknock API와 Slack의 Webhook API를 활용하여
+    학습이 종료될 경우 메세지 출력
+
+![image](https://user-images.githubusercontent.com/38157496/118346298-67ab1b00-b575-11eb-9bb8-45fa7cdebde3.png)
+
+<br>
+
+Q. TensorFlow가 아닌 PyTorch를 적용한 이유
+
+TensorFlow의 Keras 프레임워크를 선택하였으나 모델 inference 시 잠시 로딩이 걸려 빠른 추론이 불가능하다고 생각해 PyTorch 적용
+
+<br>
+
+## 3. 실행 방법
+---
+
+- 아나콘다 가상환경 등으로 python 3.7 버전 환경 설정 뒤에 ```pip install -r requirements.txt``` 명령어로 라이브러리 설치
+
+- python main.py 실행 후 출력되는 값
+```
+1 : 프로그램 실행       2 : 모델 학습   3 : 종료        (숫자 입력
+```
+에 맞는 값 실행 시 프로그램 작동
+
+
+## 4. 참고문헌
+---
+
+[1] United Nations. Department of economic and social affairs population division. World population aging 2015. New York, 2015
+
+[2] Y. Li, J. Bisera, M. Weil, and W. Tang, “An algorithm used for ventricular fibrillation detection without interrupting chest compression,” IEEE Trans. Biomed. Eng., vol. 59, no. 1, pp. 78–86, Jan. 2012.
+
+[3] B. M. Asl, S. K. Setarehdan, and M. Mohebbi, “Support vector machine-based arrhythmia classification using reduced features of heart rate variability signal,” Artificial Intelligence in Medicine, vol. 44, no. 1, pp. 51–64, 2008.
+
+[4] N. V. Thakor, Y. S. Zhu, and K. Y. Pan, “Ventricular tachycardia and fibrillation detection by a sequential hypothesis testing algorithm,” IEEE Trans. Biomed. Eng., vol. 37, no. 9, pp. 837–43, Sep. 1990
+
+[5] S. Kiranyaz, T. Ince, and M. Gabbouj, “Real-time patient-specific ECG classification by 1-D convolutional neural networks,” IEEE Transactions
+on Biomedical Engineering, vol. 63, no. 3, pp. 664–675, 2015.
