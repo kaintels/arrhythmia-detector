@@ -87,7 +87,7 @@
 
 - (1) trainer의 train 함수 구현
 
-    - loss (손실)이 적을때 모델을 새로 저장한 뒤 다음과 같이 터미널에서 출력, 이후 log 폴더에 모델 학습 로그 저장
+    - 현재 loss와 이전 loss를 비교하여 현재 loss가 적을때 모델을 새로 저장한 뒤 터미널에서 출력, log 폴더에 모델 학습 로그 저장
 
 ```python
 Training start.
@@ -114,7 +114,7 @@ Training finish.
 
 <br>
 
-Q. TensorFlow가 아닌 PyTorch를 적용한 이유
+**Q. TensorFlow가 아닌 PyTorch를 적용한 이유**
 
 TensorFlow의 Keras 프레임워크를 선택하였으나 모델 inference 시 잠시 로딩이 걸려 빠른 추론이 불가능하다고 생각해 PyTorch 적용
 
