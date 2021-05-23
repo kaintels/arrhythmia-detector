@@ -7,13 +7,13 @@
 - 👪 개발자
     - 한승우
 
-- 📌 협업, 관리도구
+- 📌 협업방법, 형상관리
     - Git, Agile
 
 - 📱 APP
     - Language & Environment: Python 3.7.10, PyCharm(전체적인 개발), VScode(터미널 실행 테스트)
 
-    - Frameworks : PyQt5, PyTorch
+    - Library : PyQt5, PyTorch, Matplotlib, Numpy, Pandas
 
     - Developer : 한승우
 
