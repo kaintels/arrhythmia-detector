@@ -13,7 +13,7 @@
 - 📱 APP
     - Language & Environment: Python 3.7.10, PyCharm(전체적인 개발), VScode(터미널 실행 테스트)
 
-    - Library : PyQt5, PyTorch 1.6, Matplotlib, Numpy, Pandas
+    - Library : PyQt5, PyTorch 1.4, Matplotlib, Numpy, Pandas
 
     - Developer : 한승우
 
