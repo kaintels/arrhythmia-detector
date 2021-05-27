@@ -13,7 +13,7 @@
 - 📱 APP
     - Language & Environment: Python 3.7.10, PyCharm(전체적인 개발), VScode(터미널 실행 테스트)
 
-    - Library : PyQt5, PyTorch, Matplotlib, Numpy, Pandas
+    - Library : PyQt5, PyTorch 1.6, Matplotlib, Numpy, Pandas
 
     - Developer : 한승우
 
@@ -116,7 +116,7 @@ Training finish.
 
 **Q. TensorFlow가 아닌 PyTorch를 적용한 이유**
 
-TensorFlow의 Keras 프레임워크를 선택하였으나 모델 inference 시 잠시 로딩이 걸려 빠른 추론이 불가능하다고 생각해 PyTorch 적용
+TensorFlow의 Keras 라이브러리를 선택하였으나 모델 inference 시 잠시 로딩이 걸려 빠른 추론이 불가능하다고 생각해 PyTorch 적용
 
 <br>
 
