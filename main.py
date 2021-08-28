@@ -15,6 +15,7 @@ from matplotlib.figure import Figure
 from scipy.io import loadmat
 from scipy.signal import find_peaks
 from models.model import ATMNet
+import json
 
 warnings.filterwarnings("ignore")
 QT_AUTO_SCREEN_SCALE_FACTOR = 2
@@ -24,16 +25,18 @@ if hasattr(Qt, "AA_EnableHighDpiScaling"):
 if hasattr(Qt, "AA_UseHighDpiPixmaps"):
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
 
-RANGE = 1400
-cnt = 0
-switch = 0
-detect = 0
-tmp_index = 0
-finish = 0
-check_detect = 0
-clears = 0
-run_time = datetime.datetime.now()
+with open("config.json") as jsonfile:
+    param = json.load(jsonfile)
 
+RANGE = param["RANGE"]
+cnt = param["cnt"]
+switch = param["switch"]
+detect = param["detect"]
+tmp_index = param["tmp_index"]
+finish = param["finish"]
+check_detect = param["check_detect"]
+clears = param["clears"]
+run_time = datetime.datetime.now()
 
 class MyMplCanvas(FigureCanvas):
     def __init__(self, parent=None, width=1, height=1, dpi=100):
@@ -180,23 +183,10 @@ class AnimationWidget(QWidget):
             self.x, self.nan, animated=True, color="deepskyblue", lw=2
         )
         (self.peak,) = self.canvas.axes.plot(
-            self.x,
-            self.nan,
-            color="red",
-            marker="*",
-            lw=1,
-            ms=10,
-            ls="None",
+            self.x, self.nan, color="red", marker="*", lw=1, ms=10, ls="None",
         )
         (self.atrpeak,) = self.canvas.axes.plot(
-            self.x,
-            self.nan,
-            color="red",
-            marker="x",
-            lw=3,
-            ms=5,
-            mew=100,
-            ls="None",
+            self.x, self.nan, color="red", marker="x", lw=3, ms=5, mew=100, ls="None",
         )
 
         x_values = []
@@ -243,13 +233,7 @@ class AnimationWidget(QWidget):
                 self.x, self.nan, animated=True, color="deepskyblue", lw=2
             )
             (self.peak,) = self.canvas.axes.plot(
-                self.x,
-                self.nan,
-                color="red",
-                marker="*",
-                lw=2,
-                ms=5,
-                ls="None",
+                self.x, self.nan, color="red", marker="*", lw=2, ms=5, ls="None",
             )
             (self.atrpeak,) = self.canvas.axes.plot(
                 self.x,
@@ -283,8 +267,9 @@ class AnimationWidget(QWidget):
                 self.EndMSG.setIcon(QMessageBox.Information)
                 self.EndMSG.setStandardButtons(QMessageBox.Ok)
                 self.EndMSG.exec_()
-                result = open("./log/"+
-                    str(run_time)[:10]
+                result = open(
+                    "./log/"
+                    + str(run_time)[:10]
                     + "_"
                     + str(run_time)[11:13]
                     + "_"
@@ -451,11 +436,14 @@ if __name__ == "__main__":
     number = int(input())
     if number == 1:
         import sys
+
         print("실행중입니다..잠시 기다려주세요.")
         model = ATMNet()
         with torch.no_grad():
             model.eval()
-        model.load_state_dict(torch.load("./checkpoint/predictor.pth", map_location="cpu"))
+        model.load_state_dict(
+            torch.load("./checkpoint/predictor.pth", map_location="cpu")
+        )
         app = QApplication(sys.argv)
         windows = AnimationWidget()
         windows.setWindowTitle("Arrhythmia Detection Program")
@@ -464,16 +452,20 @@ if __name__ == "__main__":
     if number == 2:
         from trainer.trainer import train_model_slack_notify
         import os
+
         os_path = os.path.realpath("")
-        with open(os_path + '\\dataset\\training\\feature.pkl', 'rb') as f:
+        with open(os_path + "\\dataset\\training\\feature.pkl", "rb") as f:
             feature = pickle.load(f)
 
-        with open(os_path + '\\dataset\\training\\target.pkl', 'rb') as f:
+        with open(os_path + "\\dataset\\training\\target.pkl", "rb") as f:
             target = pickle.load(f)
 
-        train_model_slack_notify(target=feature, label=target, batch_size_num=32, epochs=5)
+        train_model_slack_notify(
+            target=feature, label=target, batch_size_num=32, epochs=5
+        )
 
     if number == 3:
         print("종료")
         import sys
+
         sys.exit()
