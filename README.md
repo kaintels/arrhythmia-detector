@@ -112,14 +112,6 @@ Training finish.
 
 ![image](https://user-images.githubusercontent.com/38157496/118346298-67ab1b00-b575-11eb-9bb8-45fa7cdebde3.png)
 
-<br>
-
-**Q. TensorFlow가 아닌 PyTorch를 적용한 이유**
-
-TensorFlow의 Keras 라이브러리를 선택하였으나 모델 inference 시 잠시 로딩이 걸려 빠른 추론이 불가능하다고 생각해 PyTorch 적용
-
-<br>
-
 ## 3. 실행 방법
 
 - 아나콘다 가상환경 등으로 python 3.7 버전 환경 설정 뒤에 ```pip install -r requirements.txt``` 명령어로 라이브러리 설치
